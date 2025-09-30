@@ -1,0 +1,355 @@
+/* styles.css — Materialize look-alike (v1.5.0) */
+
+
+
+
+
+/* Prevent text selection during interaction */
+#columnResizer {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+/* Optional: prevent selection on the entire workspace during resize */
+#myWorkspace {
+    user-select: none;
+}
+
+/* But allow selection in text content areas */
+#textColumn, .vocab-column, .definition-column {
+    user-select: text;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+}
+
+
+
+.vocab-word-column-default-text, .definition-word-column-default-text {
+	padding: 10px;
+}
+
+h6 {
+	margin: 0px;
+	
+}
+
+/* Column headers */
+.column-header {
+	color: #4CAF50;
+	margin: 5px;
+	font-size:0.95rem;
+	font-weight:600;
+}
+.matchable-column-header {
+	text-align: center;
+
+}
+
+
+/* Vocab items */
+.matchable-item {
+  background:#fff;
+  padding:10px;
+  border-radius:8px;
+  border:1px solid #eef2f2;
+  margin-bottom:8px;
+  cursor:pointer;
+  transition: background 0.2s;
+}
+.matchable-item:hover { background:#f5f7f8; }
+.matchable-item .pinyin { color:#6b7280; font-size:0.92rem; margin-top:6px; }
+
+/* VARIOUS TEXT DECORATIONS */
+
+.text-word.highlighted, .matchable-item.highlighted, .readonly-highlighted {
+    background: #fff9c4 !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    border: 2px solid #ffd54f;
+    transform: scale(1.02);
+}
+
+/* Hover effects */
+.text-word:hover, .matchable-item:hover {
+    background: #e3f2fd !important; /* Light blue on hover */
+    transform: translateY(-1px);
+    transition: all 0.2s ease;
+}
+
+/* Make sure hover doesn't override selection */
+.text-word.highlighted:hover, .matchable-item.highlighted:hover {
+    background: #fff59d !important; /* Slightly darker yellow when hovered while selected */
+    border: 2px solid #ffb300;
+}
+
+.text-word, .matchable-item {
+    transition: all 0.1s ease !important;
+    cursor: pointer;
+    user-select: none;
+}
+
+.text-word { cursor: pointer; }
+.correct-answer { background: #d4edda; }
+.incorrect-answer { background: #f8d7da; }
+.missing-answer { background: #fff3cd; }
+.correction { color: green; font-weight: bold; margin-left: 10px; }
+
+/*added css to improve checkAnswers() behaviour */
+.correct { background-color: #d4edda; }
+.incorrect { background-color: #f8d7da; }
+.missing { background-color: #fff3cd; }
+.wrong-answer { text-decoration: line-through; color: #dc3545; }
+.correct-answer { color: #28a745; font-weight: bold; }
+.missing-answer { color: #856404; font-style: italic; }
+
+
+
+
+
+/* Completed items styling */
+.compact-list li {
+    transition: all 0.3s ease;
+}
+
+.compact-list li:hover {
+    background: #f5f5f5;
+}
+
+
+/* Undo match button */
+.undo-btn {
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  margin-left: 8px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.undo-btn:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+
+/* Fonts & body */
+body {
+  background: linear-gradient(180deg,#f7fafb,#f5f7f8);
+  color: #072226;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif;
+  margin:0;
+}
+
+/* Page wrap & margins */
+.page-wrap {
+  max-width:1400px;
+  margin:0 auto;
+  padding-left:96px;
+  padding-right:96px;
+}
+
+/* Responsive adjustments */
+@media (max-width:1200px){
+  .page-wrap { padding-left:24px; padding-right:24px; }
+}
+@media (max-width:600px){
+  .page-wrap { padding-left:12px; padding-right:12px; }
+}
+
+/* Card style */
+.card {
+  border-radius:10px;
+  background:#fff;
+  box-shadow: 0 8px 20px rgba(7,34,38,0.06);
+}
+
+/* Text card */
+.text-card {
+  line-height:1.6;
+}
+
+/* Completed lists */
+.compact-list { list-style:none; padding-left:0; margin:0; }
+.compact-list li { padding:6px 0; border-bottom:1px solid #f1f1f1; }
+
+
+/* Hide utility */
+.hidden { display:none!important; }
+
+/* Controls */
+.controls {
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-bottom:12px;
+  align-items:center;
+}
+.controls label {
+  display:block;
+  margin-bottom:6px;
+  font-weight:500;
+  color:#374151;
+}
+
+/* Materialize-like buttons */
+.btn {
+  background-color:#26a69a;
+  color:#fff;
+  border:none;
+  border-radius:4px;
+  padding:0 16px;
+  height:36px;
+  font-size:14px;
+  font-weight:500;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition: background 0.2s;
+}
+.btn:hover { background-color:#2bbbad; }
+
+/* Sliders (range input) look like Materialize */
+input[type=range] {
+  -webkit-appearance:none;
+  width:100%;
+  height:6px;
+  background:#e0e0e0;
+  border-radius:3px;
+  outline:none;
+  margin:6px 0;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance:none;
+  appearance:none;
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  background:#26a69a;
+  cursor:pointer;
+  border:none;
+  box-shadow:0 2px 4px rgba(0,0,0,0.2);
+  transition: background 0.2s;
+}
+input[type=range]::-webkit-slider-thumb:hover { background:#2bbbad; }
+input[type=range]::-moz-range-thumb {
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  background:#26a69a;
+  border:none;
+  cursor:pointer;
+}
+
+
+
+.custom-select-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.custom-select-wrapper label {
+  position: absolute;
+  top: -6px;
+  left: 12px;
+  background: #f7fafb; /* same as body bg */
+  padding: 0 4px;
+  font-size: 0.85rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.custom-select-wrapper select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cfd8dc;
+  border-radius: 6px;
+  background: #fff;
+  appearance: none;
+  font-size: 0.95rem;
+  color: #072226;
+  outline: none;
+  cursor: pointer;
+}
+
+.custom-select-wrapper select:focus {
+  border-color: #42a5f5;
+  box-shadow: 0 1px 0 0 #42a5f5;
+}
+
+#columnResizer {
+	/*display: none;*/
+  width: 8px;
+  background: rgba(0,0,0,0.05);
+  cursor: col-resize;
+  flex-shrink: 0;
+}
+
+/* Flex layout adjustments */
+
+
+
+/* CHANGE FROM FLEX TO GRID */
+
+#myWorkspace {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* Text takes 2/3, aside takes 1/3 */
+  gap: 12px;
+}
+
+#textColumn {
+  grid-column: 1;
+}
+
+aside {
+  grid-column: 2;
+  min-width: 400px;
+}
+
+/* Keep all your existing vocab column flexbox internals */
+
+/*
+#myWorkspace {
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+#textColumn { flex:2 1 700px; }
+aside { flex:1 1 400px; display:flex; flex-direction:column; gap:12px; }
+
+aside > div.row {
+  display:flex;
+  gap:12px;
+}
+aside > div.row > div { flex:1; }
+*/
+
+
+/* KEEP ONLY THESE RULES - DELETE EVERYTHING ELSE VOCAB-RELATED */
+
+.vocab-columns-area {
+    flex: 1;
+    min-width: 0;
+}
+
+#vocabColumnsContainer {
+    display: flex;
+    gap: 12px;
+    min-height: 200px;
+}
+
+.vocab-columns-group, .definition-columns-group {
+    flex: 1;
+    display: flex;
+    gap: 12px;
+}
+
+.vocab-word-column, .definition-column {
+    flex: 1;
+    min-width: 120px;
+}

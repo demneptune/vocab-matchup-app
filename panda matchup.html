@@ -1,0 +1,269 @@
+<!doctype html>
+
+<!-- Created by Dem Nisbet, aka The Neptune -->
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Panda Vocab Matchup — v1.5.0</title>
+
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon5.png">
+
+
+
+
+  <!-- Project CSS -->
+  <link href="styles.css" rel="stylesheet">
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- Project JS -->
+  <script src="script.js"></script>
+  <script src="Classes.js"></script>
+</head>
+<body>
+  <div class="page-wrap">
+
+    <header class="topbar">
+      <div class="title-row" style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+        <h1 class="title" style="margin:0;font-weight:600">Panda Vocab Matchup</h1>
+        <div class="version" style="margin-left:auto;color:#6b7280;padding:6px 10px;border-radius:6px;background:rgba(255,255,255,0.7);border:1px solid rgba(0,0,0,0.04)">
+          v1.5.0
+        </div>
+      </div>
+    </header>
+
+	<!-- Controls -->
+	<section class="controls" style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:12px;align-items:center">
+	  <div style="flex:1 1 200px;">
+		<label for="sizeRange">Text size</label>
+		<input id="sizeRange" type="range" min="12" max="36" value="18">
+	  </div>
+
+	  <!-- Custom select, minimal change -->
+	  <div style="flex:1 1 120px;">
+		<div class="custom-select-wrapper">
+		  <label for="setSizeSelect">Words per set</label>
+		  <select id="setSizeSelect">
+			<option value="0">Unlimited</option>
+			<option value="5">5</option>
+			<option value="10">10</option>
+		  </select>
+		</div>
+	  </div>
+
+	  <div style="flex:1 1 100px;text-align:right;">
+		<button id="answerBtn" class="btn">Check Answers</button>
+	  </div>
+	</section>
+
+
+
+    <!-- Main workspace -->
+    <main id="myWorkspace" style="display:flex;gap:12px;flex-wrap:wrap">
+
+
+
+
+      <!-- Left: Text -->
+      <article id="textColumn" style="flex:2 1 700px;">
+        <div class="card text-card" style="padding:16px">
+          <h5>Text</h5>
+          <p class="sentence">Text will appear here. You can resize it using the slider above. 
+		  <br>You can click on words in either the text or the vocab and they will be highlighted wherever they appear. 
+		  <br>To generate text, click on the AI prompt below, and paste into your favourite AI assistant.</p>
+        </div>
+      </article>
+
+
+
+
+	  <!-- Vertical separator -->
+	  <div id="columnResizer"></div>
+
+
+
+
+
+
+      <!-- Right: Completed + Vocab -->
+      <aside style="flex:1 1 400px; display:flex;flex-direction:column;gap:12px">
+
+
+		<!-- Completed Top -->
+		<div class="card" style="padding:12px;" id="completedTopWrapper">
+		  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+			<h6 class="column-header">Completed (top)</h6>
+			<button class="btn" title="Hide completed list">HIDE</button>
+		  </div>
+		  <ul id="completedTop" class="compact-list">
+			<li data-match-id="0">栖息地 - habitat
+			  <button class="undo-btn" title="Return to vocab lists">↶</button>
+			</li>
+		  </ul>
+		</div>
+
+
+		<!-- Vocab columns area - ColumnManager will populate this -->
+		<!-- FIXED 4-COLUMN STRUCTURE -->
+		<div class="vocab-columns-area">
+			<div class="vocab-columns-container" id="vocabColumnsContainer">
+				<!-- Vocab Columns Group -->
+				<div class="vocab-columns-group" id="vocabColumnsGroup">
+					<div class="card vocab-column" id="vocabCol1">
+						<h6 class="matchable-column-header column-header">Vocab</h6>
+						<div class="vocab-word-column" id="vocabCol1Content">
+							<span class="vocab-word-column-default-text">Vocab will appear here.</span>
+						</div>
+					</div>
+					<div class="card vocab-column" id="vocabCol2">
+						<h6 class="matchable-column-header column-header">Vocab</h6>
+						<div class="vocab-word-column" id="vocabCol2Content">
+						</div>
+					</div>
+				</div>
+				
+				<!-- Definition Columns Group -->
+				<div class="definition-columns-group" id="defColumnsGroup">
+					<div class="card definition-column" id="defCol1">
+						<h6 class="matchable-column-header column-header">Definitions</h6>
+						<div class="definition-column" id="defCol1Content">
+							<span class="definition-word-column-default-text">Definitions will appear here.</span>
+						</div>
+					</div>
+					<div class="card definition-column" id="defCol2">
+						<h6 class="matchable-column-header column-header">Definitions</h6>
+						<div class="definition-column" id="defCol2Content">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+
+        <!-- Completed Bottom -->
+        <div class="card" style="padding:12px;" id="completedBottomWrapper">
+          <h6 style="margin:6px 0 8px 0;color:#6b7280;font-weight:600">Completed (bottom)</h6>
+          <ul id="completedBottom" class="compact-list">
+			<li data-match-id="0">
+			  栖息地 - habitat
+			  <button class="undo-btn" title="Return to vocab lists">↶</button>
+			</li>
+          </ul>
+        </div>
+
+      </aside>
+	  
+
+		<!-- Exercise Input section: -->
+		<section style="flex: 1 1 100%; margin-top: 20px;">
+		  <div class="card" style="padding: 16px;">
+			<!-- Load Button -->
+			<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+			  <h5 style="margin: 0;">Exercise Input & Preview</h5>
+			  <button id="loadExerciseBtn" class="btn">Load Exercise</button>
+			</div>
+			
+			<!-- Single textarea for both text and vocab -->
+			<div style="margin-bottom: 16px;">
+			  <label for="exerciseInput" style="display: block; margin-bottom: 8px; font-weight: 500;">Paste exercise data:</label>
+			  <textarea id="exerciseInput" style="width: 100%; height: 150px; padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-family: monospace;" placeholder="Text with annotations...
+				[empty line]
+				VOCAB:
+				1 word - translation
+				2 word2 - translation2"></textarea>
+			</div>
+			
+			<!-- Preview columns side by side -->
+			<div style="display: flex; gap: 20px; margin-top: 20px;">
+			  <!-- Text Preview -->
+			  <div style="flex: 1;">
+				<h6 style="color: #6b7280; margin-bottom: 8px;">Text Preview</h6>
+				<div id="textPreview" style="min-height: 100px; padding: 12px; border: 1px solid #e5e7eb; border-radius: 4px; background: #f9fafb;"></div>
+			  </div>
+			  
+			  <!-- Vocab Preview -->
+			  <div style="flex: 1;">
+				<h6 style="color: #6b7280; margin-bottom: 8px;">Vocab Preview</h6>
+				<div id="vocabPreview" style="min-height: 100px; padding: 12px; border: 1px solid #e5e7eb; border-radius: 4px; background: #f9fafb;"></div>
+			  </div>
+			</div>
+			
+
+		  </div>
+		</section>
+		
+		<!-- AI Prompt Helper -->
+		<section style="flex: 1 1 100%; margin-top: 20px;">
+		  <div class="card" style="padding: 16px;">
+			<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+			  <h5 style="margin: 0;">AI Prompt Helper</h5>
+			  <button id="copyPromptBtn" class="btn">Copy to Clipboard</button>
+			</div>
+			
+			<div style="margin-bottom: 16px;">
+			  <label style="display: block; margin-bottom: 8px; font-weight: 500;">AI Prompt (copy and paste into ChatGPT/Claude):</label>
+			  <textarea id="aiPrompt" readonly style="width: 100%; height: 300px; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-family: monospace; font-size: 14px; background: #f9fafb;">
+You are a language exercise preparation assistant. You will help create vocabulary matching exercises by processing texts and generating properly formatted output.
+The user has pasted this prompt from a webapp, so he/she may have further questions and clarifications. Strive to be helpful.
+
+Follow this interaction flow exactly:
+
+1. FIRST, ask the user to paste their text
+2. THEN, ask for the language pair (e.g., "English to Chinese" or "French to English")
+3. THEN, ask about vocabulary selection and any special instructions that may relate to specific languages:
+   - "Should I extract ALL content words (nouns, verbs, adjectives, adverbs)?"
+   - "Or only challenging/less common words?"
+   - "Or a specific number of words (please specify how many)?"
+   - "And should I add anything special to the vocabulary lists" [the user may request pinyin for Chinese, for example]
+4. FINALLY, process the text and generate the output in this exact format:
+
+Text with annotated words like:
+[word1] [multiword phrase2] [猫3]
+[empty line]
+VOCAB:
+1 word - translation
+2 multiword phrase - translation  
+3 猫 - cat
+[empty line]
+VOCAB:
+1 base_word - translation
+2 base_word - translation
+3 base_word - translation
+
+CRITICAL RULES:
+- Number annotations must match vocabulary list numbers exactly
+- Place the number immediately after each word with no space before, and a closing bracket "]" after
+- Place the number and the word together in square brackets 
+	(the brackets and the number will be used for generating the vocab and will not appear in the processed text)
+- Use base forms in vocabulary list, even for inflected text words
+- If the word appears multiple times throughout the text, it must be rendered in this format (with square brackets and a number) for every occurrence.
+- Same word = same number throughout the text, even for different inflected forms, eg. "The [man1] spoke to the [men1] and the [women2]."
+- Include 5-30 vocabulary words depending on text length and user preference
+
+Wait for user responses at each step. Do not proceed until you have all three pieces of information.
+
+Begin by greeting the user and asking for the text to process.
+			  </textarea>
+			</div>
+			
+			<div style="background: #e8f4fd; padding: 12px; border-radius: 4px; border-left: 4px solid #2196F3;">
+			  <strong>Usage:</strong> Copy this prompt into any AI chat, then follow the AI's instructions to generate exercises for this app.
+			</div>
+		  </div>
+		</section>
+	  
+	  
+	  
+    </main>
+  </div>
+</body>
+</html>
